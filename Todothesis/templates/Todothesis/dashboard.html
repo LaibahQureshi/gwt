@@ -1,0 +1,92 @@
+{% extends 'Todothesis/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>Welcome</h2>
+
+<div class="dashboard-grid">
+
+  <!-- Calendar Box -->
+  <div class="dashboard-box" id="calendar-box">
+    <h3>Your Progress Calendar</h3>
+    <div id="calendar"></div>
+  </div>
+
+  <!-- Goal Tracker Box -->
+  <div class="dashboard-box" id="goal-box">
+    <h3>Progress Goal Tracker</h3>
+    <form method="post" action="{% url 'set_goal' %}">
+      {% csrf_token %}
+      <p>
+        <label for="goal">Weekly Goal (entries):</label>
+        <input type="number" name="goal" id="goal" value="{{ current_goal }}">
+      </p>
+      <button type="submit">Save Goal</button>
+    </form>
+    <p><strong>Current Progress:</strong> {{ weekly_updates_count }} entries this week</p>
+    <p><strong>Goal:</strong> {{ current_goal }} entries</p>
+    {% if weekly_updates_count >= current_goal %}
+      <p style="color: green;">🎉 Goal Achieved!</p>
+    {% else %}
+      <p style="color: orange;">Keep going!</p>
+    {% endif %}
+  </div>
+
+</div>
+
+<!-- Progress Entries List -->
+<h3 style="text-align:center;">Recent Updates</h3>
+{% for update in updates %}
+  <div class="update-box">
+    <p><strong>{{ update.timestamp|date:"Y-m-d H:i" }} | {{ update.category }}</strong><br>
+    {{ update.entry }}</p>
+
+    {% if update.feedback %}
+      <p><em>Supervisor Feedback:</em> {{ update.feedback }}</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'delete_update' update.id %}" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit" style="color:red; background:none; border:none; cursor:pointer;">
+        🗑️ Delete
+      </button>
+    </form>
+  </div>
+{% endfor %}
+{% endblock %}
+
+{% block footer_buttons %}
+  <a href="{% url 'submit' %}">➕ Submit Progress</a>
+  <a href="{% url 'logout' %}">🚪 Logout</a>
+  {% if user.is_staff %}
+    <a href="{% url 'all_progress' %}">📊 Review Students</a>
+  {% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  const progressData = {{ calendar_data|safe }};
+
+  function generateCalendar(year, month) {
+    const calendarDiv = document.getElementById('calendar');
+    calendarDiv.innerHTML = '';
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+      const hasProgress = progressData[dateStr] !== undefined;
+
+      const dayBox = document.createElement('div');
+      dayBox.textContent = day;
+      dayBox.className = hasProgress ? 'day-box filled' : 'day-box';
+      dayBox.title = hasProgress ? `Progress entries: ${progressData[dateStr]}` : 'No progress';
+
+      calendarDiv.appendChild(dayBox);
+    }
+  }
+
+  const today = new Date();
+  generateCalendar(today.getFullYear(), today.getMonth());
+</script>
+{% endblock %}

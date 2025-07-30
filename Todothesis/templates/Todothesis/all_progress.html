@@ -1,0 +1,29 @@
+{% extends 'Todothesis/base.html' %}
+
+{% block title %}All Progress Updates{% endblock %}
+
+{% block content %}
+<h2>All Users' Progress</h2>
+
+{% for update in updates %}
+  <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+    <p><strong>User:</strong> {{ update.user.username }}</p>
+    <p><strong>Category:</strong> {{ update.category }}</p>
+    <p><strong>Timestamp:</strong> {{ update.timestamp|date:"d M Y, H:i" }}</p>
+    <p><strong>Entry:</strong><br>{{ update.entry }}</p>
+
+    {% if update.feedback %}
+      <p><strong>Feedback:</strong><br>{{ update.feedback }}</p>
+    {% else %}
+      <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="update_id" value="{{ update.id }}">
+        <textarea name="feedback" rows="3" cols="60" placeholder="Write feedback here..."></textarea><br>
+        <button type="submit">Submit Feedback</button>
+      </form>
+    {% endif %}
+  </div>
+{% empty %}
+  <p>No progress submitted yet.</p>
+{% endfor %}
+{% endblock %}

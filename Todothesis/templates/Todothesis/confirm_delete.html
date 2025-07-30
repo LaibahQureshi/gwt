@@ -1,0 +1,17 @@
+{% extends 'Todothesis/base.html' %}
+
+{% block title %}Delete Update{% endblock %}
+
+{% block content %}
+<h2>Are you sure you want to delete this update?</h2>
+
+<p><strong>Category:</strong> {{ update.category }}</p>
+<p><strong>Timestamp:</strong> {{ update.timestamp }}</p>
+<p><strong>Entry:</strong> {{ update.entry }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm Delete</button>
+    <a href="{% url 'dashboard' %}">Cancel</a>
+</form>
+{% endblock %}

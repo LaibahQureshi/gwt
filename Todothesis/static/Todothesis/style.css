@@ -1,0 +1,218 @@
+/* GENERAL STYLES */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+    padding: 40px;
+    margin: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* DARK MODE STYLES */
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+}
+
+
+
+/* HEADER */
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+/* FOOTER */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* CONTENT AREA */
+.container {
+    padding: 20px;
+}
+/* FORM STYLES */
+form {
+    background: #fff;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+body.dark-mode form {
+    background-color: #1e1e1e;
+}
+
+form p {
+    margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    color: black;
+}
+body.dark-mode input[type="text"],
+body.dark-mode input[type="password"] {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4285f4;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #3367d6;
+}
+
+/* LINKS */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #4285f4;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+/* Form buttons */
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4285f4;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+form button:hover {
+    background-color: #3367d6;
+}
+
+/* Dark toggle button */
+.dark-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+    width: auto;
+}
+/* Layout for calendar and goal tracker side by side */
+.dashboard-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Boxes for calendar and goal tracker */
+.dashboard-box {
+    flex: 1 1 45%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+body.dark-mode .dashboard-box {
+    background-color: #1e1e1e;
+}
+
+/* Calendar styling */
+#calendar {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 320px;
+    margin-top: 15px;
+}
+.day-box {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 2px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+}
+.day-box.filled {
+    background-color: #4caf50;
+    color: white;
+}
+
+/* Progress entry box */
+.update-box {
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    padding: 10px;
+    max-width: 600px;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+}
+body.dark-mode .update-box {
+    background-color: #2b2b2b;
+}
+#calendar {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px; /* adjust as needed */
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.day-box {
+  width: 13%; /* approx 7 days/week */
+  padding: 10px 0;
+  margin: 1px;
+  text-align: center;
+  border: 1px solid transparent;
+  user-select: none;
+  cursor: default;
+  color: #666;
+  font-weight: normal;
+  box-sizing: border-box;
+  border-radius: 3px;
+}
+
+.day-box.filled {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+  border: 1px solid #388e3c;
+  cursor: pointer;
+}
